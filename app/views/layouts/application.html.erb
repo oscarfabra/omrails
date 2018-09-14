@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Omrails</title>
+    <title>One Month Rails Project</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,9 +10,31 @@
   </head>
 
   <body>
-    <%= link_to "Home", root_path %>
-    <%= link_to "About", about_path %>
-    <%= link_to "Contact", contact_path %>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <%= link_to "One Month Rails", root_path, class: "navbar-brand" %>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "About", about_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Contact", contact_path, class: "nav-link" %></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
     <%= yield %>
+    
+    <!-- Footer -->
+    <footer class="small text-muted">
+      <div class="container">
+        <hr>
+        <center>
+          <p>Developed by <span class="signature"><a href="http://oscarfabra.com" target="_blank">Oscar Fabra</a></span> @}~}~~~.</p>
+        </center>
+      </div>
+    </footer>
+
   </body>
 </html>
