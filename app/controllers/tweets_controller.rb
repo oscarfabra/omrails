@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_tweet_and_verify_ownership, only: [:edit, :update, :destroy]
 
   # GET /tweets
   def index
@@ -17,7 +19,6 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1/edit
   def edit
-    @tweet = current_user.tweets.find(params[:id])
   end
 
   # POST /tweets
@@ -31,8 +32,7 @@ class TweetsController < ApplicationController
   end
 
   # PATCH/PUT /tweets/1
-  def update
-    @tweet = current_user.tweets.find(params[:id])
+  def update    
     if @tweet.update(tweet_params)
       redirect_to @tweet, notice: 'Tweet was successfully updated.'
     else
@@ -42,12 +42,18 @@ class TweetsController < ApplicationController
 
   # DELETE /tweets/1
   def destroy
-    @tweet = current_user.tweets.find(params[:id])
     @tweet.destroy
     redirect_to tweets_url, notice: 'Tweet was successfully destroyed.'
   end
 
   private
+
+    def find_tweet_and_verify_ownership
+      @tweet = Tweet.find(params[:id])
+      if @tweet.user != current_user
+        redirect_to @tweet, notice: "You aren't allowed to perform this action."
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
