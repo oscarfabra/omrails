@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_link_and_verify_ownership, only: [:edit, :update, :destroy]
 
   # GET /links
   def index
@@ -12,17 +14,16 @@ class LinksController < ApplicationController
 
   # GET /links/new
   def new
-    @link = Link.new
+    @link = current_user.links.new
   end
 
   # GET /links/1/edit
   def edit
-    @link = Link.find(params[:id])
   end
 
   # POST /links
   def create
-    @link = Link.new(link_params)
+    @link = current_user.links.new(link_params)
     if @link.save
       redirect_to @link, notice: 'Link was successfully created.' 
     else
@@ -33,7 +34,6 @@ class LinksController < ApplicationController
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
   def update
-    @link = Link.find(params[:id])
     if @link.update(link_params)
       redirect_to @link, notice: 'Link was successfully updated.'
     else
@@ -44,12 +44,18 @@ class LinksController < ApplicationController
   # DELETE /links/1
   # DELETE /links/1.json
   def destroy
-    @link = Link.find(params[:id])
     @link.destroy
     redirect_to links_url, notice: 'Link was successfully destroyed.'
   end
 
   private
+
+    def find_link_and_verify_ownership
+      @link = Link.find(params[:id])
+      if @link.user != current_user
+        redirect_to @link, notice: "You aren't allowed to perform this action."
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params

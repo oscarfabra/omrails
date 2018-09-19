@@ -1,12 +1,12 @@
 <div class="container">
   <p>
     <strong>User:</strong>
-    <%= @link.user %>
+    <%= @link.user.email %>
   </p>
 
   <p>
     <strong>Url:</strong>
-    <%= @link.url %>
+    <%= link_to @link.url, @link.url, target: "_blank" %>
   </p>
 
   <p>
@@ -14,6 +14,8 @@
     <%= @link.title %>
   </p>
 
-  <%= link_to 'Edit', edit_link_path(@link) %> |
+  <% if @link.user == current_user %>
+    <%= link_to 'Edit', edit_link_path(@link) %> |
+  <% end %>
   <%= link_to 'Back', links_path %>
 </div>

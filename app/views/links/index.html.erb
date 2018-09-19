@@ -15,11 +15,16 @@
       <% @links.each do |link| %>
         <tr>
           <td><%= link.user.email %></td>
-          <td><%= link.url %></td>
+          <td><%= link_to link.url, link.url, target: "_blank"  %></td>
           <td><%= link.title %></td>
           <td><%= link_to 'Show', link %></td>
-          <td><%= link_to 'Edit', edit_link_path(link) %></td>
-          <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if link.user == current_user %>
+            <td><%= link_to 'Edit', edit_link_path(link) %></td>
+            <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% else %>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -27,6 +32,8 @@
 
   <br>
 
-  <%= link_to 'New Link', new_link_path %>  
+  <% if user_signed_in? %>
+    <%= link_to 'New Link', new_link_path %>
+  <% end %>
 
 </div>
