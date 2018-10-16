@@ -7,4 +7,7 @@ class User < ApplicationRecord
   has_many :tweets
   has_many :links
   has_many :items
+
+  validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
+  validates :name, presence: true
 end
