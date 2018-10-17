@@ -1,4 +1,23 @@
 <div class="container" id="home-container">
-  <h1><%= @user.name %></h1>
-  <p><%= @user.username %></p>
+  
+  <div class="row">  
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= @user.name %></h5>
+          <p class="card-text"><%= @user.username %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <ul class="list-group">
+        <% @user.tweets.each do |tweet| %>
+          <%= link_to tweet, class: "list-group-item list-group-item-action" do %>
+              <h5 class="card-title"><%= tweet.user.username %></h5>
+              <p class="card-text"><%= tweet.content %></p>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
