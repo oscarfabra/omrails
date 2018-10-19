@@ -6,6 +6,13 @@
         <div class="card-body">
           <h5 class="card-title"><%= @user.name %></h5>
           <p class="card-text"><%= @user.username %></p>
+          <% if current_user != @user %>
+            <% if current_user.following?(@user) %>
+              <p class="card-text"><%= link_to "Unfollow", unfollow_user_path(@user.username), method: :delete %></p>
+            <% else %>
+              <p class="card-text"><%= link_to "Follow", follow_user_path(@user.username), method: :post %></p>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
