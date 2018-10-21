@@ -19,6 +19,11 @@
           <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "About", about_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "Contact", contact_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Tweets", tweets_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Links", links_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Items", items_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Feed", feed_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Admin", admin_root_path, class: "nav-link" %></li>
         </ul>
         <ul class="navbar-nav">
           <% if user_signed_in? %>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="home-container">
   <h1>Links</h1>
 
   <table class="table">
@@ -32,8 +32,6 @@
 
   <br>
 
-  <% if user_signed_in? %>
-    <%= link_to 'New Link', new_link_path %>
-  <% end %>
+  <%= link_to 'New Link', new_link_path %>
 
 </div>
